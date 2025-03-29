@@ -198,9 +198,13 @@ class BlumTod:
         return False
 
     async def login(self):
-        auth_url = "https://user-domain.blum.codes/api/v1/auth/provider/PROVIDER_TELEGRAM_MINI_APP"
+        auth_url = "https://auth-domain.blum.codes/api/v1/auth"
         data = {
-            "query": self.query,
+            "provider": "TELEGRAM",
+            "strategy": "TELEGRAM",
+            "payload": {
+                "initData": self.query
+            }
         }
         res = await self.http(auth_url, self.headers, json.dumps(data))
         token = res.json().get("token")
